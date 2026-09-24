@@ -69,9 +69,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return items.reduce((sum, ci) => sum + ci.item.price * ci.quantity, 0);
   }, [items]);
 
-  // University student discount: 10% on canteen orders above Rs. 400
+  // University student discount: 10% on canteen orders above Rs. 300
   const studentDiscount = useMemo(() => {
-    return subtotal >= 400 ? Math.round(subtotal * 0.10) : 0;
+    return subtotal >= 300 ? Math.round(subtotal * 0.10) : 0;
   }, [subtotal]);
 
   // University canteen eco-friendly parcel fee: flat Rs. 15

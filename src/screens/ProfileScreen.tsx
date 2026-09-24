@@ -56,7 +56,7 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.profileCard}>
           <View style={styles.avatarWrapper}>
             <View style={styles.avatarPlaceholder}>
-              <Ionicons name="person" size={38} color="#FFFFFF" />
+              <Ionicons name="person" size={42} color="#64748B" />
             </View>
             <View style={styles.verifiedBadge}>
               <Ionicons name="checkmark" size={12} color="#FFFFFF" />
@@ -235,14 +235,14 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   avatarPlaceholder: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
-    backgroundColor: COLORS.secondary,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#E2E8F0',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: COLORS.primaryLight,
+    borderWidth: 2,
+    borderColor: '#CBD5E1',
   },
   verifiedBadge: {
     position: 'absolute',

@@ -30,7 +30,7 @@ const FEATURED_SPECIAL: MenuItem = {
   id: 'feat1',
   name: 'Canteen Special Lamprais with Seeni Sambol',
   category: 'Meals',
-  price: 260,
+  price: 220,
   rating: 4.9,
   reviewsCount: 480,
   preparationTime: '5 mins',
@@ -179,7 +179,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.promoBanner}>
         <View style={styles.promoLeft}>
           <Text style={styles.promoTag}>CAMPUS EXCLUSIVE</Text>
-          <Text style={styles.promoTitle}>10% Student Discount on Orders Above Rs. 400</Text>
+          <Text style={styles.promoTitle}>10% Student Discount on Orders Above Rs. 300</Text>
           <Text style={styles.promoSub}>Valid across Meals, Short Eats, Beverages, and Desserts today</Text>
         </View>
         <View style={styles.promoBadge}>
