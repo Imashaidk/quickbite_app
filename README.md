@@ -10,9 +10,9 @@ QuickBite is a mobile application developed with React Native and Expo for unive
 - Quick test credentials auto-fill button for fast evaluation.
 
 ### 2. Sri Lankan Canteen Menu
-- Categorized menu: Meals (Chicken Kottu, Rice and Curry, Egg Fried Rice, Pol Roti, String Hoppers), Beverages (Ceylon Milk Tea, Milo Dinosaur, King Coconut, Rose Faluda, Fresh Lime), and Snacks (Crispy Fish Chinese Roll, Spicy Vegetable Roti, Ulundu Vadai, Chicken Puff Pastry).
+- Categorized menu: Meals (Chicken Kottu, Rice and Curry, Egg Fried Rice, Pol Roti, String Hoppers), Beverages (Ceylon Milk Tea, Milo Dinosaur, King Coconut, Rose Faluda, Fresh Lime), Snacks (Crispy Fish Chinese Roll, Spicy Vegetable Roti, Ulundu Vadai, Chicken Puff Pastry), and Desserts (Watalappan, Curd and Kithul Treacle, Chocolate Biscuit Pudding, Caramel Custard Pudding, Sweet Coconut Pancake).
 - Real-time search filter and category pills.
-- Clean horizontal food cards with 1:1 square photos (PickMe and Uber Eats mobile layout).
+- Clean horizontal food cards with 1:1 square photos and responsive multi-column full-width grid on tablet and web.
 
 ### 3. Shared Tray and State Management
 - Global `CartContext` handling item additions, quantity modifications, special instructions, and tray clearance.

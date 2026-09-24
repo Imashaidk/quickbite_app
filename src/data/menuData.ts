@@ -1,7 +1,7 @@
 export interface MenuItem {
   id: string;
   name: string;
-  category: 'Meals' | 'Beverages' | 'Snacks';
+  category: 'Meals' | 'Beverages' | 'Snacks' | 'Desserts';
   price: number; // in LKR (Rs.)
   rating: number;
   reviewsCount: number;
@@ -213,7 +213,77 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80',
     isVegetarian: false,
   },
+
+  // Desserts
+  {
+    id: 'd1',
+    name: 'Authentic Sri Lankan Watalappan',
+    category: 'Desserts',
+    price: 220,
+    rating: 4.9,
+    reviewsCount: 290,
+    preparationTime: '1 min',
+    calories: '280 kcal',
+    description: 'Traditional steamed kithul jaggery and thick coconut milk pudding infused with cardamom, nutmeg, and crunchy cashew nuts.',
+    image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&auto=format&fit=crop&q=80',
+    isVegetarian: true,
+    popular: true,
+  },
+  {
+    id: 'd2',
+    name: 'Buffalo Curd and Kithul Treacle',
+    category: 'Desserts',
+    price: 250,
+    rating: 4.9,
+    reviewsCount: 215,
+    preparationTime: '1 min',
+    calories: '210 kcal',
+    description: 'Creamy clay pot buffalo curd served with a generous serving of pure golden organic kithul palm treacle.',
+    image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&auto=format&fit=crop&q=80',
+    isVegetarian: true,
+    popular: true,
+  },
+  {
+    id: 'd3',
+    name: 'Chocolate Biscuit Pudding (CBP)',
+    category: 'Desserts',
+    price: 200,
+    rating: 4.8,
+    reviewsCount: 310,
+    preparationTime: '1 min',
+    calories: '320 kcal',
+    description: 'Beloved Sri Lankan chilled dessert with layers of milk-soaked Marie biscuits and rich velvety chocolate buttercream.',
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
+    isVegetarian: true,
+    popular: true,
+  },
+  {
+    id: 'd4',
+    name: 'Caramel Custard Pudding',
+    category: 'Desserts',
+    price: 180,
+    rating: 4.7,
+    reviewsCount: 145,
+    preparationTime: '1 min',
+    calories: '230 kcal',
+    description: 'Silky smooth baked egg and milk custard topped with a rich bittersweet golden amber caramelized sugar syrup.',
+    image: 'https://images.unsplash.com/photo-1528975604071-b4dc52a2d18c?w=600&auto=format&fit=crop&q=80',
+    isVegetarian: true,
+  },
+  {
+    id: 'd5',
+    name: 'Sweet Coconut Pani Pol Pancake (2 pcs)',
+    category: 'Desserts',
+    price: 160,
+    rating: 4.8,
+    reviewsCount: 168,
+    preparationTime: '3 mins',
+    calories: '240 kcal',
+    description: 'Two soft golden crepes wrapped around warm freshly grated coconut caramelized with aromatic spiced kithul treacle.',
+    image: 'https://images.unsplash.com/photo-1519869325930-281384150729?w=600&auto=format&fit=crop&q=80',
+    isVegetarian: true,
+  },
 ];
 
-export const CATEGORIES = ['All', 'Meals', 'Beverages', 'Snacks'] as const;
+export const CATEGORIES = ['All', 'Meals', 'Beverages', 'Snacks', 'Desserts'] as const;
 export type CategoryType = typeof CATEGORIES[number];

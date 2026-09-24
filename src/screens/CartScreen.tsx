@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   listContent: {
     padding: SPACING.md,
     paddingBottom: 110,
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
   },
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
     ...SHADOWS.md,

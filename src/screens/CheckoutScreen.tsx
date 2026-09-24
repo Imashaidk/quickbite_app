@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: SPACING.md,
     paddingBottom: 110,
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
   },
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
     ...SHADOWS.md,

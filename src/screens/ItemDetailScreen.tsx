@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 110,
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
   },
@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: SPACING.md,
-    maxWidth: 680,
+    maxWidth: 1000,
     alignSelf: 'center',
     width: '100%',
     ...SHADOWS.md,

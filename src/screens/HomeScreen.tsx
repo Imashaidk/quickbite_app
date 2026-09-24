@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
@@ -23,13 +24,14 @@ import { useOrder } from '../context/OrderContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const { width } = Dimensions.get('window');
-const isTabletOrWeb = width >= 768;
-
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { addToCart, itemCount, total } = useCart();
   const { user } = useAuth();
   const { activeOrder } = useOrder();
+  const { width } = useWindowDimensions();
+
+  // Dynamic responsive columns based on screen width
+  const numColumns = width >= 1100 ? 3 : width >= 680 ? 2 : 1;
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('All');
@@ -105,7 +107,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.promoLeft}>
           <Text style={styles.promoTag}>STUDENT EXCLUSIVE</Text>
           <Text style={styles.promoTitle}>10% Off Orders Above Rs. 1000</Text>
-          <Text style={styles.promoSub}>Valid for all Meals and Short Eats today</Text>
+          <Text style={styles.promoSub}>Valid for all Meals, Short Eats, Beverages and Desserts today</Text>
         </View>
         <View style={styles.promoBadge}>
           <Ionicons name="flash-outline" size={24} color="#FFFFFF" />
@@ -117,7 +119,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <Ionicons name="search-outline" size={18} color={COLORS.textSecondary} style={{ marginRight: 8 }} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search kottu, rice and curry, milk tea..."
+          placeholder="Search kottu, rice and curry, watalappan, milk tea..."
           placeholderTextColor={COLORS.textMuted}
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -137,6 +139,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
           if (cat === 'Meals') iconName = 'fast-food-outline';
           if (cat === 'Beverages') iconName = 'cafe-outline';
           if (cat === 'Snacks') iconName = 'pizza-outline';
+          if (cat === 'Desserts') iconName = 'ice-cream-outline';
           if (cat === 'All') iconName = 'grid-outline';
 
           return (
@@ -177,7 +180,10 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   // Professional PickMe / Uber Eats style horizontal card with 1:1 square photo
   const renderMenuItem = ({ item }: { item: MenuItem }) => (
     <TouchableOpacity
-      style={styles.card}
+      style={[
+        styles.card,
+        numColumns > 1 && styles.cardMultiColumn,
+      ]}
       onPress={() => navigation.navigate('ItemDetail', { item })}
       activeOpacity={0.88}
     >
@@ -259,7 +265,9 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         renderItem={renderMenuItem}
         ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.listContent}
-        key="sri-lankan-canteen-list"
+        numColumns={numColumns}
+        key={`canteen-grid-${numColumns}`}
+        columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : undefined}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Ionicons name="restaurant-outline" size={44} color={COLORS.textMuted} />
@@ -331,15 +339,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
+  // Full screen responsive width
   listContent: {
     paddingHorizontal: SPACING.md,
     paddingBottom: 110,
-    maxWidth: 720,
-    alignSelf: 'center',
     width: '100%',
+  },
+  columnWrapper: {
+    gap: 12,
   },
   headerContainer: {
     marginBottom: SPACING.sm,
+    width: '100%',
   },
   topBar: {
     flexDirection: 'row',
@@ -487,8 +498,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.cardBackground,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
+    paddingHorizontal: 13,
+    paddingVertical: 8,
     borderRadius: 18,
     borderWidth: 1,
     borderColor: COLORS.border,
@@ -523,7 +534,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     fontWeight: '500',
   },
-  // Professional horizontal food card layout
+  // Responsive horizontal card
   card: {
     flexDirection: 'row',
     backgroundColor: COLORS.cardBackground,
@@ -534,6 +545,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     alignItems: 'center',
     ...SHADOWS.sm,
+  },
+  cardMultiColumn: {
+    flex: 1,
+    minWidth: 280,
   },
   cardLeft: {
     flex: 1,
@@ -638,7 +653,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
     marginTop: 6,
   },
-  // Professional 1:1 Square food container on the right
+  // 1:1 square photo container on right
   cardRight: {
     width: 100,
     alignItems: 'center',
@@ -670,6 +685,7 @@ const styles = StyleSheet.create({
   emptyContainer: {
     alignItems: 'center',
     paddingVertical: 40,
+    width: '100%',
   },
   emptyTitle: {
     fontSize: 16,
@@ -699,9 +715,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: SPACING.md,
     right: SPACING.md,
-    maxWidth: 720,
     alignSelf: 'center',
-    width: '92%',
+    width: '95%',
+    maxWidth: 900,
   },
   floatingCart: {
     backgroundColor: COLORS.secondary,
