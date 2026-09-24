@@ -30,13 +30,13 @@ const FEATURED_SPECIAL: MenuItem = {
   id: 'feat1',
   name: 'Canteen Special Lamprais with Seeni Sambol',
   category: 'Meals',
-  price: 650,
+  price: 260,
   rating: 4.9,
   reviewsCount: 480,
   preparationTime: '5 mins',
   calories: '680 kcal',
   description: 'Authentic banana leaf baked samba rice infused with ghee and meat broth, accompanied by spicy chicken curry, ash plantain paahi, brinjal moju, sweet seeni sambol, and fried boiled egg.',
-  image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&auto=format&fit=crop&q=80',
+  image: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=800&auto=format&fit=crop&q=80',
   isVegetarian: false,
   isSpicy: true,
   popular: true,
@@ -179,7 +179,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.promoBanner}>
         <View style={styles.promoLeft}>
           <Text style={styles.promoTag}>CAMPUS EXCLUSIVE</Text>
-          <Text style={styles.promoTitle}>10% Student Discount on Orders Above Rs. 1000</Text>
+          <Text style={styles.promoTitle}>10% Student Discount on Orders Above Rs. 400</Text>
           <Text style={styles.promoSub}>Valid across Meals, Short Eats, Beverages, and Desserts today</Text>
         </View>
         <View style={styles.promoBadge}>
@@ -351,7 +351,9 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
               onPress={() => navigation.navigate('Profile')}
               activeOpacity={0.8}
             >
-              <Image source={{ uri: user.avatarUrl }} style={styles.sidebarAvatar} />
+              <View style={styles.sidebarAvatarBox}>
+                <Ionicons name="person" size={20} color="#FFFFFF" />
+              </View>
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text style={styles.sidebarStudentName} numberOfLines={1}>{user.name}</Text>
                 <Text style={styles.sidebarStudentId}>ID: {user.studentId}</Text>
@@ -556,10 +558,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
   },
-  sidebarAvatar: {
+  sidebarAvatarBox: {
     width: 44,
     height: 44,
     borderRadius: 22,
+    backgroundColor: COLORS.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sidebarStudentName: {
     fontSize: 13,

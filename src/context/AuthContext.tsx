@@ -6,7 +6,7 @@ export interface UserProfile {
   email: string;
   campusCardBalance: number;
   isGuest: boolean;
-  avatarUrl: string;
+  avatarInitials: string;
 }
 
 interface AuthContextType {
@@ -20,9 +20,9 @@ const DEFAULT_STUDENT: UserProfile = {
   name: 'Kavindu Perera',
   studentId: 'ST-2024-8831',
   email: 'kavindu.p@campus.ac.lk',
-  campusCardBalance: 2500,
+  campusCardBalance: 1000,
   isGuest: false,
-  avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
+  avatarInitials: 'KP',
 };
 
 const GUEST_USER: UserProfile = {
@@ -31,7 +31,7 @@ const GUEST_USER: UserProfile = {
   email: 'visitor@canteen.ac.lk',
   campusCardBalance: 0,
   isGuest: true,
-  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+  avatarInitials: 'CV',
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -44,9 +44,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       name: email.split('@')[0].replace('.', ' ').toUpperCase(),
       studentId: studentId || 'ST-2024-8831',
       email: email || 'student@campus.ac.lk',
-      campusCardBalance: 2500,
+      campusCardBalance: 1000,
       isGuest: false,
-      avatarUrl: DEFAULT_STUDENT.avatarUrl,
+      avatarInitials: 'ST',
     });
   };
 

@@ -53,7 +53,7 @@ assert(menuContent.includes("'Beverages'"), "Category 'Beverages' is defined");
 assert(menuContent.includes("'Snacks'"), "Category 'Snacks' is defined");
 assert(menuContent.includes("'Desserts'"), "Category 'Desserts' is defined");
 assert(menuContent.includes('Chicken Kottu Roti'), "Featured item 'Chicken Kottu Roti' exists");
-assert(menuContent.includes('Sri Lankan Rice and Curry'), "Featured item 'Sri Lankan Rice and Curry' exists");
+assert(menuContent.includes('Sri Lankan Chicken Rice and Curry'), "Featured item 'Sri Lankan Chicken Rice and Curry' exists");
 assert(menuContent.includes('Authentic Sri Lankan Watalappan'), "Dessert 'Watalappan' exists");
 assert(menuContent.includes('Buffalo Curd and Kithul Treacle'), "Dessert 'Curd and Kithul Treacle' exists");
 assert(menuContent.includes('Chocolate Biscuit Pudding'), "Dessert 'Chocolate Biscuit Pudding' exists");
@@ -63,31 +63,31 @@ console.log('\n--- 3. FUNCTIONAL TEST: CART CALCULATIONS & DISCOUNT ---');
 function simulateCart(items) {
   const itemCount = items.reduce((sum, ci) => sum + ci.quantity, 0);
   const subtotal = items.reduce((sum, ci) => sum + ci.price * ci.quantity, 0);
-  const studentDiscount = subtotal >= 1000 ? Math.round(subtotal * 0.10) : 0;
-  const tax = items.length > 0 ? 30 : 0;
+  const studentDiscount = subtotal >= 400 ? Math.round(subtotal * 0.10) : 0;
+  const tax = items.length > 0 ? 15 : 0;
   const total = Math.max(0, subtotal - studentDiscount + tax);
   return { itemCount, subtotal, studentDiscount, tax, total };
 }
 
-// Test case 3.1: Subtotal < 1000 (No discount)
+// Test case 3.1: Subtotal < 400 (No discount)
 const cart1 = simulateCart([
-  { name: 'Kottu', price: 550, quantity: 1 },
-  { name: 'Milk Tea', price: 120, quantity: 2 },
+  { name: 'Kottu', price: 250, quantity: 1 },
+  { name: 'Milk Tea', price: 50, quantity: 2 },
 ]);
 assert(cart1.itemCount === 3, 'Item count correctly calculated as 3');
-assert(cart1.subtotal === 790, 'Subtotal correctly calculated as Rs. 790');
-assert(cart1.studentDiscount === 0, 'No discount when subtotal < Rs. 1000');
-assert(cart1.tax === 30, 'Canteen packing fee is Rs. 30');
-assert(cart1.total === 820, 'Total is Rs. 820 (790 + 30)');
+assert(cart1.subtotal === 350, 'Subtotal correctly calculated as Rs. 350');
+assert(cart1.studentDiscount === 0, 'No discount when subtotal < Rs. 400');
+assert(cart1.tax === 15, 'Canteen packing fee is Rs. 15');
+assert(cart1.total === 365, 'Total is Rs. 365 (350 + 15)');
 
-// Test case 3.2: Subtotal >= 1000 (10% student discount applied)
+// Test case 3.2: Subtotal >= 400 (10% student discount applied)
 const cart2 = simulateCart([
-  { name: 'Kottu', price: 550, quantity: 2 },
-  { name: 'Rice and Curry', price: 480, quantity: 1 },
+  { name: 'Kottu', price: 250, quantity: 2 },
+  { name: 'Rice and Curry', price: 180, quantity: 1 },
 ]);
-assert(cart2.subtotal === 1580, 'Subtotal correctly calculated as Rs. 1580');
-assert(cart2.studentDiscount === 158, '10% student discount correctly applied (Rs. 158)');
-assert(cart2.total === 1452, 'Total correctly calculated with discount (1580 - 158 + 30 = 1452)');
+assert(cart2.subtotal === 680, 'Subtotal correctly calculated as Rs. 680');
+assert(cart2.studentDiscount === 68, '10% student discount correctly applied (Rs. 68)');
+assert(cart2.total === 627, 'Total correctly calculated with discount (680 - 68 + 15 = 627)');
 
 // 4. Functional Test: Order Lifecycle Progression
 console.log('\n--- 4. FUNCTIONAL TEST: ORDER STATUS LIFECYCLE ---');
