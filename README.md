@@ -2,7 +2,7 @@
 
 QuickBite is a cross-platform mobile application developed with React Native and Expo for the University of Kelaniya canteens (Main Student Canteen, Science Faculty Canteen, and Kannangara Canteen). It allows students and faculty to browse daily Sri Lankan food items, pre-order ahead of time, pay with their University Smart Card or cash, and track kitchen status in real time to skip canteen queues between lectures.
 
-## Features
+## Key Features
 
 ### 1. Authentication and Guest Mode
 - Student login with University of Kelaniya Student ID format (e.g. `IM/2023/099`).
@@ -13,12 +13,12 @@ QuickBite is a cross-platform mobile application developed with React Native and
 - Authentic University of Kelaniya subsidized campus rates across 20 items.
 - Categorized menu: Meals (Chicken Kottu, Rice and Curry, Egg Fried Rice, Pol Roti, String Hoppers), Beverages (Ceylon Milk Tea, Milo Dinosaur, King Coconut, Rose Faluda, Fresh Lime), Snacks (Crispy Fish Chinese Roll, Spicy Vegetable Roti, Crispy Vegetable Samosa, Ulundu Vadai, Chicken Puff Pastry), and Desserts (Watalappan, Curd and Kithul Treacle, Chocolate Biscuit Pudding, Caramel Custard Pudding, Sweet Coconut Pancake).
 - Clean horizontal food cards with category vector icon badges arranged in strictly 2 columns with a desktop navigation sidebar.
-- Featured Daily Chef's Special (Canteen Lamprais) prominently showcased on the front page.
-- Apple website typography (SF Pro Display / Text family stack) with crisp letter-spacing and weight hierarchy.
+- Prominent UOK SPECIAL badge on the front-page Canteen Special Lamprais card (Rs. 220.00).
+- Apple website typography (SF Pro Display and SF Pro Text stack) with crisp letter-spacing and weight hierarchy.
 
 ### 3. Shared Tray and State Management
 - Global `CartContext` handling item additions, quantity modifications, special instructions, and tray clearance.
-- Dynamic subtotal, packaging fee, and automatic 10% student discount on orders above Rs. 300.
+- Dynamic subtotal, packaging fee (Rs. 15.00), and automatic 10% student discount on orders above Rs. 300.
 - State persists smoothly across all screens.
 
 ### 4. Checkout and Pickup Counters
@@ -72,7 +72,7 @@ quickbite_app/
 │       ├── CheckoutScreen.tsx
 │       ├── OrderTrackingScreen.tsx
 │       └── ProfileScreen.tsx
-└── SUBMISSION_REPORT.md         # Activity sheet test cases and documentation
+└── README.md                    # Project documentation
 ```
 
 ---
