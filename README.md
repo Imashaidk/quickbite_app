@@ -1,29 +1,30 @@
-# QuickBite : Campus Food Ordering App (Cross-Platform MVP)
+# QuickBite : University of Kelaniya Canteen App (Cross-Platform MVP)
 
-QuickBite is a mobile application developed with React Native and Expo for university canteens. It allows students and faculty to browse daily Sri Lankan food items, pre-order ahead of time, pay with their university meal balance or cash, and track kitchen status in real time to skip canteen queues between lectures.
+QuickBite is a cross-platform mobile application developed with React Native and Expo for the University of Kelaniya canteens (Main Student Canteen, Science Faculty Canteen, and Kannangara Canteen). It allows students and faculty to browse daily Sri Lankan food items, pre-order ahead of time, pay with their University Smart Card or cash, and track kitchen status in real time to skip canteen queues between lectures.
 
 ## Features
 
 ### 1. Authentication and Guest Mode
-- Student login with Student ID and university credentials.
+- Student login with University of Kelaniya Student ID format (e.g. `IM/2023/099`).
 - Instant Guest access mode for campus visitors.
-- Quick test credentials auto-fill button for fast evaluation.
+- Quick test credentials auto-fill button for fast evaluation (`IM/2023/099`).
 
 ### 2. Sri Lankan Canteen Menu
-- Categorized menu: Meals (Chicken Kottu, Rice and Curry, Egg Fried Rice, Pol Roti, String Hoppers), Beverages (Ceylon Milk Tea, Milo Dinosaur, King Coconut, Rose Faluda, Fresh Lime), Snacks (Crispy Fish Chinese Roll, Spicy Vegetable Roti, Ulundu Vadai, Chicken Puff Pastry), and Desserts (Watalappan, Curd and Kithul Treacle, Chocolate Biscuit Pudding, Caramel Custard Pudding, Sweet Coconut Pancake).
-- Clean horizontal food cards with 1:1 square photos arranged in strictly 2 columns with a desktop navigation sidebar.
+- Authentic University of Kelaniya subsidized campus rates across 20 items.
+- Categorized menu: Meals (Chicken Kottu, Rice and Curry, Egg Fried Rice, Pol Roti, String Hoppers), Beverages (Ceylon Milk Tea, Milo Dinosaur, King Coconut, Rose Faluda, Fresh Lime), Snacks (Crispy Fish Chinese Roll, Spicy Vegetable Roti, Crispy Vegetable Samosa, Ulundu Vadai, Chicken Puff Pastry), and Desserts (Watalappan, Curd and Kithul Treacle, Chocolate Biscuit Pudding, Caramel Custard Pudding, Sweet Coconut Pancake).
+- Clean horizontal food cards with category vector icon badges arranged in strictly 2 columns with a desktop navigation sidebar.
 - Featured Daily Chef's Special (Canteen Lamprais) prominently showcased on the front page.
 - Apple website typography (SF Pro Display / Text family stack) with crisp letter-spacing and weight hierarchy.
 
 ### 3. Shared Tray and State Management
 - Global `CartContext` handling item additions, quantity modifications, special instructions, and tray clearance.
-- Dynamic subtotal, packaging fee, and automatic 10% student discount on orders above Rs. 1000.
+- Dynamic subtotal, packaging fee, and automatic 10% student discount on orders above Rs. 300.
 - State persists smoothly across all screens.
 
 ### 4. Checkout and Pickup Counters
 - Selectable pickup time slots (ASAP in 8-10 mins, Next Lecture Break, After Class).
-- Selectable canteen counters (Counter 1: Main Meals, Counter 2: Short Eats and Tea, Counter 3: Juices and Desserts).
-- Payment options: University Student Smart Card, LankaQR, and Cash at Counter.
+- Selectable canteen counters: Counter 1 (Science Faculty Canteen), Counter 2 (Kannangara Canteen), Counter 3 (Main Student Canteen).
+- Payment options: Kelaniya Student Smart Card, LankaQR, and Cash at Counter.
 
 ### 5. Live Kitchen Order Tracker
 - Real-time timeline: Placed -> Preparing -> Ready for pickup -> Completed.
@@ -31,7 +32,7 @@ QuickBite is a mobile application developed with React Native and Expo for unive
 - Interactive kitchen simulation controls for manual testing and automated state advance.
 
 ### 6. Student Profile and History
-- Displays student details, ID, and campus card balance in LKR.
+- Displays student details, Kelaniya Student ID (`IM/2023/099`), default user silhouette avatar icon, and smart card balance in LKR.
 - Full order history with past orders, date, item breakdown, and status.
 - One-tap re-order button.
 

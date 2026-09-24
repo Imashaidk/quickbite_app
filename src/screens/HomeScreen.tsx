@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  Image,
   SafeAreaView,
   Platform,
   StatusBar,
@@ -36,10 +35,31 @@ const FEATURED_SPECIAL: MenuItem = {
   preparationTime: '5 mins',
   calories: '680 kcal',
   description: 'Authentic banana leaf baked samba rice infused with ghee and meat broth, accompanied by spicy chicken curry, ash plantain paahi, brinjal moju, sweet seeni sambol, and fried boiled egg.',
-  image: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=800&auto=format&fit=crop&q=80',
+  image: '',
+  iconName: 'restaurant',
   isVegetarian: false,
   isSpicy: true,
   popular: true,
+};
+
+const getCategoryBadgeBg = (category: string) => {
+  switch (category) {
+    case 'Meals': return '#FFF7ED';
+    case 'Beverages': return '#EFF6FF';
+    case 'Snacks': return '#FEF3C7';
+    case 'Desserts': return '#FDF2F8';
+    default: return '#F8FAFC';
+  }
+};
+
+const getCategoryIconColor = (category: string) => {
+  switch (category) {
+    case 'Meals': return COLORS.primary;
+    case 'Beverages': return '#2563EB';
+    case 'Snacks': return '#D97706';
+    case 'Desserts': return '#DB2777';
+    default: return COLORS.secondary;
+  }
 };
 
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
@@ -82,7 +102,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
       {!isWideScreen && (
         <View style={styles.topBar}>
           <View style={styles.greetingBox}>
-            <Text style={styles.greetingSmall}>University Main Canteen</Text>
+            <Text style={styles.greetingSmall}>University of Kelaniya Canteen</Text>
             <Text style={styles.greetingName}>
               Hello, {user.name}
             </Text>
@@ -126,51 +146,49 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
       {/* Featured Food Item on the Front Page */}
       <View style={styles.featuredCard}>
-        <Image
-          source={{ uri: FEATURED_SPECIAL.image }}
-          style={styles.featuredImage}
-          resizeMode="cover"
-        />
-        <View style={styles.featuredOverlay}>
+        <View style={styles.featuredTopRow}>
           <View style={styles.featuredBadgeRow}>
             <View style={styles.chefBadge}>
               <Ionicons name="star" size={12} color="#FFFFFF" />
-              <Text style={styles.chefBadgeText}>CHEF'S DAILY SPECIAL</Text>
+              <Text style={styles.chefBadgeText}>KELANIYA SPECIAL</Text>
             </View>
             <View style={styles.limitedBadge}>
-              <Text style={styles.limitedBadgeText}>LIMITED BATCH</Text>
+              <Text style={styles.limitedBadgeText}>DAILY BATCH</Text>
             </View>
           </View>
+          <View style={styles.featuredIconContainer}>
+            <Ionicons name="restaurant" size={26} color={COLORS.primary} />
+          </View>
+        </View>
 
-          <Text style={styles.featuredTitle}>{FEATURED_SPECIAL.name}</Text>
-          <Text style={styles.featuredDesc} numberOfLines={2}>
-            {FEATURED_SPECIAL.description}
-          </Text>
+        <Text style={styles.featuredTitle}>{FEATURED_SPECIAL.name}</Text>
+        <Text style={styles.featuredDesc} numberOfLines={2}>
+          {FEATURED_SPECIAL.description}
+        </Text>
 
-          <View style={styles.featuredBottomRow}>
-            <View>
-              <Text style={styles.featuredPriceLabel}>Special Price</Text>
-              <Text style={styles.featuredPrice}>Rs. {FEATURED_SPECIAL.price.toFixed(2)}</Text>
-            </View>
+        <View style={styles.featuredBottomRow}>
+          <View>
+            <Text style={styles.featuredPriceLabel}>Special Student Rate</Text>
+            <Text style={styles.featuredPrice}>Rs. {FEATURED_SPECIAL.price.toFixed(2)}</Text>
+          </View>
 
-            <View style={styles.featuredActionsRow}>
-              <TouchableOpacity
-                style={styles.featuredDetailBtn}
-                onPress={() => navigation.navigate('ItemDetail', { item: FEATURED_SPECIAL })}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.featuredDetailBtnText}>Details</Text>
-              </TouchableOpacity>
+          <View style={styles.featuredActionsRow}>
+            <TouchableOpacity
+              style={styles.featuredDetailBtn}
+              onPress={() => navigation.navigate('ItemDetail', { item: FEATURED_SPECIAL })}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.featuredDetailBtnText}>Details</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.featuredAddBtn}
-                onPress={() => handleQuickAdd(FEATURED_SPECIAL)}
-                activeOpacity={0.85}
-              >
-                <Ionicons name="add" size={16} color="#FFFFFF" />
-                <Text style={styles.featuredAddBtnText}>Add Special</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.featuredAddBtn}
+              onPress={() => handleQuickAdd(FEATURED_SPECIAL)}
+              activeOpacity={0.85}
+            >
+              <Ionicons name="add" size={16} color="#FFFFFF" />
+              <Text style={styles.featuredAddBtnText}>Add Special</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -305,7 +323,26 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
       </View>
 
       <View style={styles.cardRight}>
-        <Image source={{ uri: item.image }} style={styles.cardSquareImage} resizeMode="cover" />
+        <View
+          style={[
+            styles.cardDishBadge,
+            { backgroundColor: getCategoryBadgeBg(item.category) },
+          ]}
+        >
+          <Ionicons
+            name={(item.iconName as any) || 'restaurant'}
+            size={32}
+            color={getCategoryIconColor(item.category)}
+          />
+          <Text
+            style={[
+              styles.cardDishCategoryTag,
+              { color: getCategoryIconColor(item.category) },
+            ]}
+          >
+            {item.category}
+          </Text>
+        </View>
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => handleQuickAdd(item)}
@@ -341,7 +378,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
               </View>
               <View>
                 <Text style={styles.sidebarBrandTitle}>QuickBite</Text>
-                <Text style={styles.sidebarBrandSub}>University Canteen</Text>
+                <Text style={styles.sidebarBrandSub}>University of Kelaniya</Text>
               </View>
             </View>
 
@@ -751,22 +788,33 @@ const styles = StyleSheet.create({
   },
   // Featured Front-Page Food Item
   featuredCard: {
-    backgroundColor: COLORS.cardBackground,
+    backgroundColor: '#0F172A',
     borderRadius: 18,
-    overflow: 'hidden',
+    padding: SPACING.md,
     marginTop: SPACING.xs,
     marginBottom: SPACING.md,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     ...SHADOWS.md,
   },
-  featuredImage: {
-    width: '100%',
-    height: 190,
-    backgroundColor: '#CBD5E1',
+  featuredTopRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 6,
+  },
+  featuredIconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: 'rgba(255, 94, 30, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 94, 30, 0.3)',
   },
   featuredOverlay: {
-    padding: SPACING.md,
+    paddingTop: SPACING.xs,
   },
   featuredBadgeRow: {
     flexDirection: 'row',
@@ -1112,11 +1160,20 @@ const styles = StyleSheet.create({
     width: 96,
     alignItems: 'center',
   },
-  cardSquareImage: {
+  cardDishBadge: {
     width: 96,
     height: 96,
-    borderRadius: 12,
-    backgroundColor: '#E2E8F0',
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.06)',
+  },
+  cardDishCategoryTag: {
+    fontSize: 10,
+    fontWeight: '700',
+    marginTop: 4,
+    fontFamily: FONT_STACK,
   },
   addButton: {
     backgroundColor: COLORS.primary,

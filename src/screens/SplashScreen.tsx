@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { COLORS, SPACING, SHADOWS, FONT_FAMILY } from '../theme/colors';
@@ -9,30 +9,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 const FONT_STACK = FONT_FAMILY || 'System';
 
-// Featured Sri Lankan Canteen Foods preview for the Welcome Screen
-const WELCOME_FOOD_PREVIEWS = [
-  {
-    name: 'Hot Kottu Roti',
-    price: 'Rs. 240',
-    image: 'https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=800&auto=format&fit=crop&q=80',
-  },
-  {
-    name: 'Rice and Curry',
-    price: 'Rs. 160',
-    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800&auto=format&fit=crop&q=80',
-  },
-  {
-    name: 'Crispy Short Eats',
-    price: 'Rs. 50',
-    image: 'https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=800&auto=format&fit=crop&q=80',
-  },
-  {
-    name: 'Ceylon Milk Tea',
-    price: 'Rs. 40',
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&auto=format&fit=crop&q=80',
-  },
-];
-
 export const SplashScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -41,33 +17,15 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
-          {/* Main Hero Food Banner */}
-          <View style={styles.heroCard}>
-            <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=900&auto=format&fit=crop&q=80' }}
-              style={styles.heroImage}
-              resizeMode="cover"
-            />
-            <View style={styles.heroGradientOverlay}>
-              <View style={styles.heroBadge}>
-                <Ionicons name="restaurant" size={14} color="#FFFFFF" />
-                <Text style={styles.heroBadgeText}>FRESH CAMPUS MEALS</Text>
-              </View>
-              <Text style={styles.heroTitle}>University Canteen Service</Text>
+          {/* Kelaniya University Canteen Emblem */}
+          <View style={styles.emblemCard}>
+            <View style={styles.iconCircle}>
+              <Ionicons name="restaurant" size={44} color="#FFFFFF" />
             </View>
-          </View>
-
-          {/* Sri Lankan Food Highlights Grid on Welcome Screen */}
-          <View style={styles.foodPreviewRow}>
-            {WELCOME_FOOD_PREVIEWS.map((item, idx) => (
-              <View key={idx} style={styles.foodThumbCard}>
-                <Image source={{ uri: item.image }} style={styles.foodThumbImage} resizeMode="cover" />
-                <View style={styles.foodThumbMeta}>
-                  <Text style={styles.foodThumbName} numberOfLines={1}>{item.name}</Text>
-                  <Text style={styles.foodThumbPrice}>{item.price}</Text>
-                </View>
-              </View>
-            ))}
+            <View style={styles.emblemUniversityBadge}>
+              <Ionicons name="school" size={13} color="#FFFFFF" />
+              <Text style={styles.emblemUniversityText}>UNIVERSITY OF KELANIYA</Text>
+            </View>
           </View>
 
           <Text style={styles.appName}>QuickBite</Text>
@@ -75,12 +33,28 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 
           <View style={styles.badge}>
             <Ionicons name="school-outline" size={15} color={COLORS.primary} />
-            <Text style={styles.badgeText}>Faculty and Student Canteen Service</Text>
+            <Text style={styles.badgeText}>Main, Science & Kannangara Canteens</Text>
           </View>
 
           <Text style={styles.description}>
-            Pre-order your hot chicken kottu, rice and curry, short eats, and Ceylon tea between lectures to skip the canteen queue.
+            Skip the long queue between lectures. Pre-order your hot chicken kottu, rice and curry, short eats, and Ceylon tea directly from University of Kelaniya canteens.
           </Text>
+
+          {/* Canteen Stations Showcase */}
+          <View style={styles.stationsRow}>
+            <View style={styles.stationPill}>
+              <Ionicons name="restaurant-outline" size={14} color={COLORS.primary} />
+              <Text style={styles.stationText}>Main Meals</Text>
+            </View>
+            <View style={styles.stationPill}>
+              <Ionicons name="fast-food-outline" size={14} color={COLORS.secondary} />
+              <Text style={styles.stationText}>Short Eats</Text>
+            </View>
+            <View style={styles.stationPill}>
+              <Ionicons name="cafe-outline" size={14} color="#F59E0B" />
+              <Text style={styles.stationText}>Ceylon Tea</Text>
+            </View>
+          </View>
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity
@@ -101,7 +75,7 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.footerText}>Cross-Platform MVP : v1.0.0</Text>
+          <Text style={styles.footerText}>University of Kelaniya Canteen System : v1.0.0</Text>
         </View>
       </ScrollView>
     </View>
@@ -143,95 +117,44 @@ const styles = StyleSheet.create({
   content: {
     alignItems: 'center',
     width: '100%',
-    maxWidth: 480,
+    maxWidth: 460,
   },
-  // Main Hero Image Banner
-  heroCard: {
-    width: '100%',
-    height: 180,
-    borderRadius: 20,
-    overflow: 'hidden',
-    position: 'relative',
-    marginBottom: SPACING.md,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    ...SHADOWS.lg,
-  },
-  heroImage: {
-    width: '100%',
-    height: '100%',
-  },
-  heroGradientOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: SPACING.md,
-    backgroundColor: 'rgba(15, 23, 42, 0.72)',
-  },
-  heroBadge: {
-    flexDirection: 'row',
+  emblemCard: {
     alignItems: 'center',
-    alignSelf: 'flex-start',
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 12,
-    marginBottom: 4,
-    gap: 4,
-  },
-  heroBadgeText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-    fontFamily: FONT_STACK,
-  },
-  heroTitle: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: FONT_STACK,
-  },
-  // Food Preview Row on Welcome Screen
-  foodPreviewRow: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    gap: 8,
     marginBottom: SPACING.lg,
   },
-  foodThumbCard: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    borderRadius: 12,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.10)',
-  },
-  foodThumbImage: {
-    width: '100%',
-    height: 56,
-  },
-  foodThumbMeta: {
-    padding: 4,
+  iconCircle: {
+    width: 90,
+    height: 90,
+    borderRadius: 28,
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
     alignItems: 'center',
+    ...SHADOWS.lg,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
   },
-  foodThumbName: {
+  emblemUniversityBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
+    marginTop: 12,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+  },
+  emblemUniversityText: {
     color: '#F8FAFC',
-    fontSize: 9,
-    fontWeight: '600',
-    textAlign: 'center',
-    fontFamily: FONT_STACK,
-  },
-  foodThumbPrice: {
-    color: COLORS.primary,
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '700',
+    letterSpacing: 0.8,
     fontFamily: FONT_STACK,
   },
   appName: {
-    fontSize: 36,
+    fontSize: 38,
     fontWeight: '800',
     color: '#FFFFFF',
     letterSpacing: -0.5,
@@ -250,7 +173,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(255, 94, 30, 0.15)',
     paddingHorizontal: SPACING.md,
-    paddingVertical: 5,
+    paddingVertical: 6,
     borderRadius: 20,
     marginTop: SPACING.md,
     borderWidth: 1,
@@ -267,10 +190,32 @@ const styles = StyleSheet.create({
     color: '#94A3B8',
     textAlign: 'center',
     fontSize: 13,
-    lineHeight: 20,
+    lineHeight: 21,
     marginTop: SPACING.md,
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
     paddingHorizontal: SPACING.sm,
+    fontFamily: FONT_STACK,
+  },
+  stationsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: SPACING.xl,
+  },
+  stationPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 12,
+    gap: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  stationText: {
+    color: '#E2E8F0',
+    fontSize: 11,
+    fontWeight: '600',
     fontFamily: FONT_STACK,
   },
   buttonContainer: {

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Image,
   SafeAreaView,
   StatusBar,
   Platform,
@@ -74,7 +73,7 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
           {/* Campus Card Balance Box */}
           <View style={styles.balanceBox}>
             <View>
-              <Text style={styles.balanceLabel}>University Smart Card Balance</Text>
+              <Text style={styles.balanceLabel}>Kelaniya Student Smart Card Balance</Text>
               <Text style={styles.balanceAmount}>Rs. {user.campusCardBalance.toFixed(2)}</Text>
             </View>
             <TouchableOpacity style={styles.topUpButton} activeOpacity={0.8}>

@@ -18,8 +18,8 @@ interface AuthContextType {
 
 const DEFAULT_STUDENT: UserProfile = {
   name: 'Kavindu Perera',
-  studentId: 'ST-2024-8831',
-  email: 'kavindu.p@campus.ac.lk',
+  studentId: 'IM/2023/099',
+  email: 'kavindu-im23099@kln.ac.lk',
   campusCardBalance: 1000,
   isGuest: false,
   avatarInitials: 'KP',
@@ -27,8 +27,8 @@ const DEFAULT_STUDENT: UserProfile = {
 
 const GUEST_USER: UserProfile = {
   name: 'Campus Visitor',
-  studentId: 'GUEST-001',
-  email: 'visitor@canteen.ac.lk',
+  studentId: 'KLN-GUEST',
+  email: 'visitor@kln.ac.lk',
   campusCardBalance: 0,
   isGuest: true,
   avatarInitials: 'CV',
@@ -42,11 +42,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const loginAsStudent = (email: string, studentId: string) => {
     setUser({
       name: email.split('@')[0].replace('.', ' ').toUpperCase(),
-      studentId: studentId || 'ST-2024-8831',
-      email: email || 'student@campus.ac.lk',
+      studentId: studentId || 'IM/2023/099',
+      email: email || 'kavindu-im23099@kln.ac.lk',
       campusCardBalance: 1000,
       isGuest: false,
-      avatarInitials: 'ST',
+      avatarInitials: 'KP',
     });
   };
 

@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Image,
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
@@ -36,7 +35,13 @@ export const CartScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
       <View style={styles.cartCard}>
-        <Image source={{ uri: cartItem.item.image }} style={styles.cartImage} resizeMode="cover" />
+        <View style={styles.cartDishBadge}>
+          <Ionicons
+            name={(cartItem.item.iconName as any) || 'restaurant'}
+            size={26}
+            color={COLORS.primary}
+          />
+        </View>
 
         <View style={styles.cartInfo}>
           <View style={styles.itemHeader}>
@@ -264,11 +269,15 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     ...SHADOWS.sm,
   },
-  cartImage: {
-    width: 72,
-    height: 72,
-    borderRadius: 10,
-    backgroundColor: '#E2E8F0',
+  cartDishBadge: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    backgroundColor: '#FFF7ED',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FED7AA',
   },
   cartInfo: {
     flex: 1,

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   ScrollView,
   TouchableOpacity,
   TextInput,
@@ -61,10 +60,8 @@ export const ItemDetailScreen: React.FC<Props> = ({ route, navigation }) => {
       )}
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Professional Hero Image Banner */}
-        <View style={styles.imageWrapper}>
-          <Image source={{ uri: item.image }} style={styles.heroImage} resizeMode="cover" />
-
+        {/* Professional Dish Header Card */}
+        <View style={styles.dishHeroHeader}>
           <TouchableOpacity
             style={styles.navCircleButtonLeft}
             onPress={() => navigation.goBack()}
@@ -72,6 +69,15 @@ export const ItemDetailScreen: React.FC<Props> = ({ route, navigation }) => {
           >
             <Ionicons name="arrow-back" size={20} color="#0F172A" />
           </TouchableOpacity>
+
+          <View style={styles.dishHeroIconBadge}>
+            <Ionicons
+              name={(item.iconName as any) || 'restaurant'}
+              size={56}
+              color={COLORS.primary}
+            />
+            <Text style={styles.dishHeroCategoryTag}>{item.category.toUpperCase()}</Text>
+          </View>
 
           <View style={styles.navRightRow}>
             <TouchableOpacity
@@ -242,15 +248,27 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12,
   },
-  imageWrapper: {
-    height: 250,
+  dishHeroHeader: {
+    height: 180,
     width: '100%',
     position: 'relative',
-    backgroundColor: '#CBD5E1',
+    backgroundColor: '#0F172A',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
   },
-  heroImage: {
-    width: '100%',
-    height: '100%',
+  dishHeroIconBadge: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  dishHeroCategoryTag: {
+    color: '#CBD5E1',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
+    marginTop: 6,
   },
   navCircleButtonLeft: {
     position: 'absolute',

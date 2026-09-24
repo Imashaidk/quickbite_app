@@ -26,15 +26,15 @@ const PICKUP_TIMES = [
 ];
 
 const PICKUP_STATIONS = [
-  { id: 'st1', name: 'Counter 1: Main Meals', desc: 'Rice and curry, kottu, fried rice' },
-  { id: 'st2', name: 'Counter 2: Short Eats and Tea', desc: 'Rolls, roti, milk tea, pastries' },
-  { id: 'st3', name: 'Counter 3: Juices and Desserts', desc: 'King coconut, faluda, fresh juices' },
+  { id: 'st1', name: 'Counter 1: Science Faculty Canteen', desc: 'Rice and curry, chicken kottu, fried rice' },
+  { id: 'st2', name: 'Counter 2: Kannangara Canteen', desc: 'Fish rolls, vegetable samosa, roti, Ceylon tea' },
+  { id: 'st3', name: 'Counter 3: Main Student Canteen', desc: 'King coconut, faluda, watalappan, curd' },
 ];
 
 const PAYMENT_METHODS = [
-  { id: 'card', name: 'University Student Smart Card', icon: 'card-outline', detail: 'Balance: Rs. 2,500.00' },
-  { id: 'lankaqr', name: 'LankaQR / Mobile Banking', icon: 'qr-code-outline', detail: 'Scan and pay at collection' },
-  { id: 'counter', name: 'Cash Payment at Counter', icon: 'cash-outline', detail: 'Pay cash when collecting meal' },
+  { id: 'card', name: 'Kelaniya Student Smart Card', icon: 'card-outline', detail: 'Available Balance: Rs. 1,000.00' },
+  { id: 'lankaqr', name: 'LankaQR / Mobile Banking', icon: 'qr-code-outline', detail: 'Scan and pay at collection counter' },
+  { id: 'counter', name: 'Cash Payment at Counter', icon: 'cash-outline', detail: 'Pay cash when collecting meal parcel' },
 ];
 
 export const CheckoutScreen: React.FC<Props> = ({ navigation }) => {

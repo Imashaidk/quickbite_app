@@ -19,14 +19,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const { loginAsStudent, loginAsGuest } = useAuth();
-  const [studentId, setStudentId] = useState('ST-2024-8831');
-  const [password, setPassword] = useState('canteen123');
+  const [studentId, setStudentId] = useState('IM/2023/099');
+  const [password, setPassword] = useState('kelaniya123');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleStudentLogin = () => {
     if (!studentId.trim()) {
-      setErrorMessage('Please enter your Student ID or University Email.');
+      setErrorMessage('Please enter your Kelaniya Student ID (e.g. IM/2023/099).');
       return;
     }
     if (!password || password.length < 4) {
@@ -35,7 +35,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     setErrorMessage('');
-    loginAsStudent('kavindu.p@campus.ac.lk', studentId.trim());
+    loginAsStudent('kavindu-im23099@kln.ac.lk', studentId.trim());
     navigation.replace('Home');
   };
 
@@ -45,8 +45,8 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleFillDemo = () => {
-    setStudentId('ST-2024-8831');
-    setPassword('canteen123');
+    setStudentId('IM/2023/099');
+    setPassword('kelaniya123');
     setErrorMessage('');
   };
 
@@ -61,12 +61,12 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
             <Ionicons name="school-outline" size={38} color={COLORS.primary} />
           </View>
           <Text style={styles.title}>Welcome to QuickBite</Text>
-          <Text style={styles.subtitle}>Enter university credentials to link your student meal account</Text>
+          <Text style={styles.subtitle}>University of Kelaniya Student Canteen Portal</Text>
         </View>
 
         <TouchableOpacity style={styles.demoBanner} onPress={handleFillDemo} activeOpacity={0.8}>
           <Ionicons name="flash-outline" size={16} color={COLORS.primary} />
-          <Text style={styles.demoBannerText}>Tap here to auto-fill sample Student credentials</Text>
+          <Text style={styles.demoBannerText}>Tap to auto-fill Kelaniya credentials (IM/2023/099)</Text>
         </TouchableOpacity>
 
         <View style={styles.card}>
@@ -77,19 +77,19 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           ) : null}
 
-          <Text style={styles.inputLabel}>Student ID or University Email</Text>
+          <Text style={styles.inputLabel}>Student ID (e.g. IM/2023/099)</Text>
           <View style={styles.inputWrapper}>
             <Ionicons name="person-outline" size={20} color={COLORS.textSecondary} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
-              placeholder="e.g. ST-2024-8831"
+              placeholder="e.g. IM/2023/099"
               placeholderTextColor={COLORS.textMuted}
               value={studentId}
               onChangeText={(txt) => {
                 setStudentId(txt);
                 if (errorMessage) setErrorMessage('');
               }}
-              autoCapitalize="none"
+              autoCapitalize="characters"
             />
           </View>
 

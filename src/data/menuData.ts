@@ -2,20 +2,21 @@ export interface MenuItem {
   id: string;
   name: string;
   category: 'Meals' | 'Beverages' | 'Snacks' | 'Desserts';
-  price: number; // in LKR (Rs.) - Realistic subsidized university canteen rates
+  price: number; // in LKR (Rs.) - Realistic University of Kelaniya canteen rates
   rating: number;
   reviewsCount: number;
   preparationTime: string;
   calories: string;
   description: string;
-  image: string;
+  image?: string;
+  iconName: string;
   isVegetarian: boolean;
   isSpicy?: boolean;
   popular?: boolean;
 }
 
 export const MENU_ITEMS: MenuItem[] = [
-  // Meals - Realistic Sri Lankan university campus prices (Rs. 70 - 240)
+  // Meals - University of Kelaniya Main and Science Faculty Canteen rates (Rs. 70 - 240)
   {
     id: 'm1',
     name: 'Chicken Kottu Roti',
@@ -26,7 +27,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '6-8 mins',
     calories: '540 kcal',
     description: 'Chopped godamba roti tossed on hot griddle with spiced chicken curry, scrambled egg, leeks, and onions.',
-    image: 'https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'restaurant',
     isVegetarian: false,
     isSpicy: true,
     popular: true,
@@ -41,7 +43,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '610 kcal',
     description: 'Steamed samba rice served with country chicken curry, tempered dhal, coconut pol sambol, and papadam.',
-    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'restaurant',
     isVegetarian: false,
     isSpicy: true,
     popular: true,
@@ -56,7 +59,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '5-7 mins',
     calories: '520 kcal',
     description: 'Wok tossed rice with eggs, spring onions, and a side of homemade devilled chili paste.',
-    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'restaurant',
     isVegetarian: false,
   },
   {
@@ -69,7 +73,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '3 mins',
     calories: '320 kcal',
     description: 'Two fresh coconut rotis served with spicy crushed chili-onion lunu miris and thick yellow dhal curry.',
-    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'restaurant',
     isVegetarian: true,
     isSpicy: true,
   },
@@ -83,11 +88,12 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '3 mins',
     calories: '340 kcal',
     description: 'Ten steamed rice flour string hoppers served with coconut milk kiri hodi and spicy pol sambol.',
-    image: 'https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'restaurant',
     isVegetarian: true,
   },
 
-  // Beverages - Realistic campus prices (Rs. 40 - 90)
+  // Beverages - University of Kelaniya rates (Rs. 40 - 90)
   {
     id: 'b1',
     name: 'Ceylon Kiri The (Milk Tea)',
@@ -98,7 +104,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '110 kcal',
     description: 'Traditional campus canteen pulled milk tea brewed with strong Ceylon black tea and sweetened milk.',
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'cafe',
     isVegetarian: true,
     popular: true,
   },
@@ -112,7 +119,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '220 kcal',
     description: 'Chilled rich chocolate malt drink served over ice and topped with a spoonful of raw Milo powder.',
-    image: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'cafe',
     isVegetarian: true,
     popular: true,
   },
@@ -126,7 +134,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '60 kcal',
     description: 'Naturally sweet and refreshing chilled Sri Lankan king coconut water.',
-    image: 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'water',
     isVegetarian: true,
   },
   {
@@ -139,7 +148,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '3 mins',
     calories: '260 kcal',
     description: 'Rose syrup, chilled milk, basil seeds, and jelly cubes topped with vanilla ice cream.',
-    image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'ice-cream',
     isVegetarian: true,
     popular: true,
   },
@@ -153,11 +163,12 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '80 kcal',
     description: 'Freshly squeezed local green lime juice with crushed mint leaves and rock sugar.',
-    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'wine',
     isVegetarian: true,
   },
 
-  // Snacks (Short Eats) - Realistic campus prices (Rs. 40 - 60)
+  // Snacks (Short Eats) - Kannangara Canteen rates (Rs. 40 - 60)
   {
     id: 's1',
     name: 'Crispy Fish Chinese Roll',
@@ -168,7 +179,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '180 kcal',
     description: 'Crispy crumbed pancake roll filled with spicy canned mackerel, boiled potatoes, and black pepper.',
-    image: 'https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'fast-food',
     isVegetarian: false,
     isSpicy: true,
     popular: true,
@@ -183,7 +195,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '160 kcal',
     description: 'Triangle folded soft godamba roti stuffed with curried potatoes, leeks, and green chilies.',
-    image: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'fast-food',
     isVegetarian: true,
     isSpicy: true,
   },
@@ -197,7 +210,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '190 kcal',
     description: 'Two golden triangular pastries stuffed with spicy potato and curried peas filling.',
-    image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'fast-food',
     isVegetarian: true,
     isSpicy: true,
     popular: true,
@@ -212,7 +226,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '210 kcal',
     description: 'Two golden fried savory lentil fritters seasoned with fresh curry leaves and cumin.',
-    image: 'https://images.unsplash.com/photo-1630383249896-424e482df921?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'fast-food',
     isVegetarian: true,
   },
   {
@@ -225,11 +240,12 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '240 kcal',
     description: 'Flaky butter puff pastry filled with peppery minced chicken and boiled egg.',
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'fast-food',
     isVegetarian: false,
   },
 
-  // Desserts - Realistic campus prices (Rs. 40 - 80)
+  // Desserts - University of Kelaniya rates (Rs. 40 - 80)
   {
     id: 'd1',
     name: 'Authentic Sri Lankan Watalappan',
@@ -240,7 +256,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '280 kcal',
     description: 'Steamed kithul jaggery and coconut milk pudding infused with cardamom, nutmeg, and cashew nuts.',
-    image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'heart',
     isVegetarian: true,
     popular: true,
   },
@@ -254,7 +271,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '210 kcal',
     description: 'Clay pot buffalo curd served with a generous serving of pure golden kithul palm treacle.',
-    image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'nutrition',
     isVegetarian: true,
     popular: true,
   },
@@ -268,7 +286,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '320 kcal',
     description: 'Layers of milk-soaked Marie biscuits and rich velvety chocolate buttercream.',
-    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'gift',
     isVegetarian: true,
     popular: true,
   },
@@ -282,7 +301,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '1 min',
     calories: '230 kcal',
     description: 'Smooth baked egg and milk custard topped with amber caramelized sugar syrup.',
-    image: 'https://images.unsplash.com/photo-1528975604071-b4dc52a2d18c?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'star',
     isVegetarian: true,
   },
   {
@@ -295,7 +315,8 @@ export const MENU_ITEMS: MenuItem[] = [
     preparationTime: '2 mins',
     calories: '240 kcal',
     description: 'Two soft crepes wrapped around freshly grated coconut caramelized with kithul treacle.',
-    image: 'https://images.unsplash.com/photo-1519869325930-281384150729?w=800&auto=format&fit=crop&q=80',
+    image: '',
+    iconName: 'sunny',
     isVegetarian: true,
   },
 ];
