@@ -64,15 +64,15 @@ quickbite_app/
 │   │   ├── types.ts             # Route types and params
 │   │   └── AppNavigator.tsx     # Native stack navigation flow
 │   └── screens/
-│       ├── SplashScreen.tsx
-│       ├── LoginScreen.tsx
-│       ├── HomeScreen.tsx
-│       ├── ItemDetailScreen.tsx
-│       ├── CartScreen.tsx
-│       ├── CheckoutScreen.tsx
-│       ├── OrderTrackingScreen.tsx
-│       └── ProfileScreen.tsx
-└── README.md                    # Project documentation
+│       ├── SplashScreen.tsx     # UOK welcome crest and station pills
+│       ├── LoginScreen.tsx      # Student authentication (IM/2023/099)
+│       ├── HomeScreen.tsx       # 2-column menu with UOK Special badge
+│       ├── ItemDetailScreen.tsx # Item customizations and notes
+│       ├── CartScreen.tsx       # Tray breakdown and student discount
+│       ├── CheckoutScreen.tsx   # Canteen counters and smart card pay
+│       ├── OrderTrackingScreen.tsx # Pickup PIN and live kitchen status
+│       └── ProfileScreen.tsx    # Silhouette avatar and order history
+└── README.md                    # Project documentation and setup guide
 ```
 
 ---
