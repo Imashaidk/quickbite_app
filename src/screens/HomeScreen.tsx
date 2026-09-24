@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  Dimensions,
   SafeAreaView,
   Platform,
   StatusBar,
@@ -16,7 +15,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { MENU_ITEMS, MenuItem, CATEGORIES, CategoryType } from '../data/menuData';
-import { COLORS, SPACING, SHADOWS } from '../theme/colors';
+import { COLORS, SPACING, SHADOWS, FONTS } from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -24,14 +23,33 @@ import { useOrder } from '../context/OrderContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
+// Featured Daily Canteen Special
+const FEATURED_SPECIAL: MenuItem = {
+  id: 'feat1',
+  name: 'Canteen Special Lamprais with Seeni Sambol',
+  category: 'Meals',
+  price: 650,
+  rating: 4.9,
+  reviewsCount: 480,
+  preparationTime: '5 mins',
+  calories: '680 kcal',
+  description: 'Authentic banana leaf baked samba rice infused with ghee and meat broth, accompanied by spicy chicken curry, ash plantain paahi, brinjal moju, sweet seeni sambol, and fried boiled egg.',
+  image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&auto=format&fit=crop&q=80',
+  isVegetarian: false,
+  isSpicy: true,
+  popular: true,
+};
+
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { addToCart, itemCount, total } = useCart();
   const { user } = useAuth();
   const { activeOrder } = useOrder();
   const { width } = useWindowDimensions();
 
-  // Dynamic responsive columns based on screen width
-  const numColumns = width >= 1100 ? 3 : width >= 680 ? 2 : 1;
+  // Desktop/tablet side bar active when screen is wide
+  const isWideScreen = width >= 800;
+  // Strictly 2 columns on wide screens, 1 column on phone
+  const numColumns = isWideScreen ? 2 : 1;
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('All');
@@ -58,59 +76,112 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   const renderHeader = () => (
     <View style={styles.headerContainer}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <View style={styles.greetingBox}>
-          <Text style={styles.greetingSmall}>University Main Canteen</Text>
-          <Text style={styles.greetingName}>
-            Hello, {user.name}
-          </Text>
-        </View>
+      {/* Mobile Top Bar (only displayed on screens without the sidebar) */}
+      {!isWideScreen && (
+        <View style={styles.topBar}>
+          <View style={styles.greetingBox}>
+            <Text style={styles.greetingSmall}>University Main Canteen</Text>
+            <Text style={styles.greetingName}>
+              Hello, {user.name}
+            </Text>
+          </View>
 
-        <View style={styles.topRightActions}>
-          {activeOrder && (
-            <TouchableOpacity
-              style={styles.activeOrderPill}
-              onPress={() => navigation.navigate('OrderTracking', { orderId: activeOrder.id })}
-              activeOpacity={0.8}
-            >
-              <View style={styles.pulseDot} />
-              <Text style={styles.activeOrderPillText}>Order #{activeOrder.id}</Text>
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity
-            style={styles.iconCircleButton}
-            onPress={() => navigation.navigate('Profile')}
-            activeOpacity={0.7}
-          >
-            <Ionicons name="person-outline" size={20} color={COLORS.secondary} />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.iconCircleButton, styles.cartButton]}
-            onPress={() => navigation.navigate('Cart')}
-            activeOpacity={0.7}
-          >
-            <Ionicons name="cart-outline" size={20} color={COLORS.primary} />
-            {itemCount > 0 && (
-              <View style={styles.badgeCount}>
-                <Text style={styles.badgeCountText}>{itemCount}</Text>
-              </View>
+          <View style={styles.topRightActions}>
+            {activeOrder && (
+              <TouchableOpacity
+                style={styles.activeOrderPill}
+                onPress={() => navigation.navigate('OrderTracking', { orderId: activeOrder.id })}
+                activeOpacity={0.8}
+              >
+                <View style={styles.pulseDot} />
+                <Text style={styles.activeOrderPillText}>Order #{activeOrder.id}</Text>
+              </TouchableOpacity>
             )}
-          </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.iconCircleButton}
+              onPress={() => navigation.navigate('Profile')}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="person-outline" size={18} color={COLORS.secondary} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.iconCircleButton, styles.cartButton]}
+              onPress={() => navigation.navigate('Cart')}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="cart-outline" size={18} color={COLORS.primary} />
+              {itemCount > 0 && (
+                <View style={styles.badgeCount}>
+                  <Text style={styles.badgeCountText}>{itemCount}</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Featured Food Item on the Front Page */}
+      <View style={styles.featuredCard}>
+        <Image
+          source={{ uri: FEATURED_SPECIAL.image }}
+          style={styles.featuredImage}
+          resizeMode="cover"
+        />
+        <View style={styles.featuredOverlay}>
+          <View style={styles.featuredBadgeRow}>
+            <View style={styles.chefBadge}>
+              <Ionicons name="star" size={12} color="#FFFFFF" />
+              <Text style={styles.chefBadgeText}>CHEF'S DAILY SPECIAL</Text>
+            </View>
+            <View style={styles.limitedBadge}>
+              <Text style={styles.limitedBadgeText}>LIMITED BATCH</Text>
+            </View>
+          </View>
+
+          <Text style={styles.featuredTitle}>{FEATURED_SPECIAL.name}</Text>
+          <Text style={styles.featuredDesc} numberOfLines={2}>
+            {FEATURED_SPECIAL.description}
+          </Text>
+
+          <View style={styles.featuredBottomRow}>
+            <View>
+              <Text style={styles.featuredPriceLabel}>Special Price</Text>
+              <Text style={styles.featuredPrice}>Rs. {FEATURED_SPECIAL.price.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.featuredActionsRow}>
+              <TouchableOpacity
+                style={styles.featuredDetailBtn}
+                onPress={() => navigation.navigate('ItemDetail', { item: FEATURED_SPECIAL })}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.featuredDetailBtnText}>Details</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.featuredAddBtn}
+                onPress={() => handleQuickAdd(FEATURED_SPECIAL)}
+                activeOpacity={0.85}
+              >
+                <Ionicons name="add" size={16} color="#FFFFFF" />
+                <Text style={styles.featuredAddBtnText}>Add Special</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
 
-      {/* Special Campus Promo Announcement */}
+      {/* Student Discount Announcement */}
       <View style={styles.promoBanner}>
         <View style={styles.promoLeft}>
-          <Text style={styles.promoTag}>STUDENT EXCLUSIVE</Text>
-          <Text style={styles.promoTitle}>10% Off Orders Above Rs. 1000</Text>
-          <Text style={styles.promoSub}>Valid for all Meals, Short Eats, Beverages and Desserts today</Text>
+          <Text style={styles.promoTag}>CAMPUS EXCLUSIVE</Text>
+          <Text style={styles.promoTitle}>10% Student Discount on Orders Above Rs. 1000</Text>
+          <Text style={styles.promoSub}>Valid across Meals, Short Eats, Beverages, and Desserts today</Text>
         </View>
         <View style={styles.promoBadge}>
-          <Ionicons name="flash-outline" size={24} color="#FFFFFF" />
+          <Ionicons name="flash-outline" size={22} color="#FFFFFF" />
         </View>
       </View>
 
@@ -119,7 +190,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <Ionicons name="search-outline" size={18} color={COLORS.textSecondary} style={{ marginRight: 8 }} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search kottu, rice and curry, watalappan, milk tea..."
+          placeholder="Search kottu, lamprais, rice and curry, watalappan..."
           placeholderTextColor={COLORS.textMuted}
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -151,7 +222,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
             >
               <Ionicons
                 name={iconName}
-                size={15}
+                size={14}
                 color={isActive ? '#FFFFFF' : COLORS.textSecondary}
               />
               <Text
@@ -177,17 +248,15 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
     </View>
   );
 
-  // Professional PickMe / Uber Eats style horizontal card with 1:1 square photo
   const renderMenuItem = ({ item }: { item: MenuItem }) => (
     <TouchableOpacity
       style={[
         styles.card,
-        numColumns > 1 && styles.cardMultiColumn,
+        isWideScreen && styles.cardTwoColumn,
       ]}
       onPress={() => navigation.navigate('ItemDetail', { item })}
       activeOpacity={0.88}
     >
-      {/* Left Details column */}
       <View style={styles.cardLeft}>
         <View style={styles.cardHeaderRow}>
           {item.isVegetarian ? (
@@ -233,7 +302,6 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.priceText}>Rs. {item.price.toFixed(2)}</Text>
       </View>
 
-      {/* Right 1:1 Square Image with Add button */}
       <View style={styles.cardRight}>
         <Image source={{ uri: item.image }} style={styles.cardSquareImage} resizeMode="cover" />
         <TouchableOpacity
@@ -241,7 +309,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
           onPress={() => handleQuickAdd(item)}
           activeOpacity={0.8}
         >
-          <Ionicons name="add" size={16} color="#FFFFFF" />
+          <Ionicons name="add" size={15} color="#FFFFFF" />
           <Text style={styles.addButtonText}>Add</Text>
         </TouchableOpacity>
       </View>
@@ -254,39 +322,132 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
       {addedToast && (
         <View style={styles.toast}>
-          <Ionicons name="checkmark-circle-outline" size={18} color="#FFFFFF" />
+          <Ionicons name="checkmark-circle-outline" size={17} color="#FFFFFF" />
           <Text style={styles.toastText}>{addedToast}</Text>
         </View>
       )}
 
-      <FlatList
-        data={filteredItems}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMenuItem}
-        ListHeaderComponent={renderHeader}
-        contentContainerStyle={styles.listContent}
-        numColumns={numColumns}
-        key={`canteen-grid-${numColumns}`}
-        columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : undefined}
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Ionicons name="restaurant-outline" size={44} color={COLORS.textMuted} />
-            <Text style={styles.emptyTitle}>No menu items found</Text>
-            <Text style={styles.emptySub}>Try searching for another Sri Lankan meal or reset category</Text>
-            <TouchableOpacity
-              style={styles.resetButton}
-              onPress={() => {
-                setSearchQuery('');
-                setSelectedCategory('All');
-              }}
-            >
-              <Text style={styles.resetButtonText}>View Full Menu</Text>
-            </TouchableOpacity>
-          </View>
-        }
-      />
+      {/* Main Responsive Shell: Sidebar + Content */}
+      <View style={styles.appShell}>
+        {/* Navigation Sidebar for Wide / Desktop view */}
+        {isWideScreen && (
+          <View style={styles.sidebar}>
+            {/* Brand Header */}
+            <View style={styles.sidebarBrand}>
+              <View style={styles.sidebarLogoBox}>
+                <Ionicons name="restaurant" size={22} color="#FFFFFF" />
+              </View>
+              <View>
+                <Text style={styles.sidebarBrandTitle}>QuickBite</Text>
+                <Text style={styles.sidebarBrandSub}>University Canteen</Text>
+              </View>
+            </View>
 
-      {itemCount > 0 && (
+            {/* Student Info Card */}
+            <TouchableOpacity
+              style={styles.sidebarStudentCard}
+              onPress={() => navigation.navigate('Profile')}
+              activeOpacity={0.8}
+            >
+              <Image source={{ uri: user.avatarUrl }} style={styles.sidebarAvatar} />
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Text style={styles.sidebarStudentName} numberOfLines={1}>{user.name}</Text>
+                <Text style={styles.sidebarStudentId}>ID: {user.studentId}</Text>
+                <Text style={styles.sidebarBalance}>Balance: Rs. {user.campusCardBalance.toFixed(2)}</Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* Navigation Links */}
+            <View style={styles.sidebarNav}>
+              <TouchableOpacity
+                style={[styles.sidebarNavItem, styles.sidebarNavItemActive]}
+                activeOpacity={0.8}
+              >
+                <Ionicons name="restaurant" size={18} color={COLORS.primary} />
+                <Text style={[styles.sidebarNavText, styles.sidebarNavTextActive]}>Menu Catalog</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.sidebarNavItem}
+                onPress={() => navigation.navigate('Cart')}
+                activeOpacity={0.8}
+              >
+                <Ionicons name="basket-outline" size={18} color={COLORS.textSecondary} />
+                <Text style={styles.sidebarNavText}>Your Tray</Text>
+                {itemCount > 0 && (
+                  <View style={styles.sidebarBadge}>
+                    <Text style={styles.sidebarBadgeText}>{itemCount}</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+
+              {activeOrder && (
+                <TouchableOpacity
+                  style={[styles.sidebarNavItem, styles.sidebarOrderAlert]}
+                  onPress={() => navigation.navigate('OrderTracking', { orderId: activeOrder.id })}
+                  activeOpacity={0.8}
+                >
+                  <View style={styles.pulseDot} />
+                  <Text style={[styles.sidebarNavText, { color: COLORS.primaryDark, fontWeight: '700' }]}>
+                    Track Order #{activeOrder.id}
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                style={styles.sidebarNavItem}
+                onPress={() => navigation.navigate('Profile')}
+                activeOpacity={0.8}
+              >
+                <Ionicons name="person-outline" size={18} color={COLORS.textSecondary} />
+                <Text style={styles.sidebarNavText}>Student Profile</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Canteen Hours info */}
+            <View style={styles.sidebarFooter}>
+              <View style={styles.hoursRow}>
+                <Ionicons name="time-outline" size={14} color={COLORS.textMuted} />
+                <Text style={styles.hoursText}>Counter Hours: 7:30 AM : 7:00 PM</Text>
+              </View>
+              <Text style={styles.sidebarVersion}>QuickBite MVP : Apple Design</Text>
+            </View>
+          </View>
+        )}
+
+        {/* Right Content Area: strictly 2 columns on wide screens, 1 column on phone */}
+        <View style={styles.mainContent}>
+          <FlatList
+            data={filteredItems}
+            keyExtractor={(item) => item.id}
+            renderItem={renderMenuItem}
+            ListHeaderComponent={renderHeader}
+            contentContainerStyle={styles.listContent}
+            numColumns={numColumns}
+            key={`two-col-grid-${numColumns}`}
+            columnWrapperStyle={numColumns === 2 ? styles.columnWrapperTwo : undefined}
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+                <Ionicons name="restaurant-outline" size={44} color={COLORS.textMuted} />
+                <Text style={styles.emptyTitle}>No menu items found</Text>
+                <Text style={styles.emptySub}>Try searching for another Sri Lankan meal or reset category</Text>
+                <TouchableOpacity
+                  style={styles.resetButton}
+                  onPress={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('All');
+                  }}
+                >
+                  <Text style={styles.resetButtonText}>View Full Menu</Text>
+                </TouchableOpacity>
+              </View>
+            }
+          />
+        </View>
+      </View>
+
+      {/* Floating Bottom Cart Bar (visible on mobile screens) */}
+      {!isWideScreen && itemCount > 0 && (
         <View style={styles.floatingCartContainer}>
           <TouchableOpacity
             style={styles.floatingCart}
@@ -322,7 +483,7 @@ const styles = StyleSheet.create({
   },
   toast: {
     position: 'absolute',
-    top: 50,
+    top: 30,
     alignSelf: 'center',
     backgroundColor: COLORS.secondary,
     paddingHorizontal: 16,
@@ -338,15 +499,160 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     fontSize: 13,
+    fontFamily: FONTS.family,
   },
-  // Full screen responsive width
+  appShell: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  // Apple-style sleek navigation sidebar
+  sidebar: {
+    width: 260,
+    backgroundColor: COLORS.cardBackground,
+    borderRightWidth: 1,
+    borderRightColor: COLORS.border,
+    padding: SPACING.md,
+    justifyContent: 'space-between',
+    ...SHADOWS.sm,
+  },
+  sidebarBrand: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: SPACING.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingBottom: SPACING.md,
+  },
+  sidebarLogoBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sidebarBrandTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.text,
+    fontFamily: FONTS.family,
+    letterSpacing: -0.3,
+  },
+  sidebarBrandSub: {
+    fontSize: 11,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+  },
+  sidebarStudentCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: 10,
+    marginVertical: SPACING.md,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  sidebarAvatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+  },
+  sidebarStudentName: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: COLORS.text,
+    fontFamily: FONTS.family,
+  },
+  sidebarStudentId: {
+    fontSize: 10,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+  },
+  sidebarBalance: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: COLORS.primaryDark,
+    fontFamily: FONTS.family,
+    marginTop: 2,
+  },
+  sidebarNav: {
+    flex: 1,
+    gap: 6,
+  },
+  sidebarNavItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 11,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    gap: 10,
+  },
+  sidebarNavItemActive: {
+    backgroundColor: COLORS.primaryLight,
+  },
+  sidebarNavText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+    flex: 1,
+  },
+  sidebarNavTextActive: {
+    color: COLORS.primaryDark,
+    fontWeight: '700',
+  },
+  sidebarBadge: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  sidebarBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '800',
+    fontFamily: FONTS.family,
+  },
+  sidebarOrderAlert: {
+    backgroundColor: '#FEF3C7',
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+  },
+  sidebarFooter: {
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    paddingTop: SPACING.md,
+  },
+  hoursRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  hoursText: {
+    fontSize: 11,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+  },
+  sidebarVersion: {
+    fontSize: 10,
+    color: COLORS.textMuted,
+    marginTop: 6,
+    fontFamily: FONTS.family,
+  },
+  // Main Content
+  mainContent: {
+    flex: 1,
+  },
   listContent: {
-    paddingHorizontal: SPACING.md,
+    paddingHorizontal: SPACING.lg,
     paddingBottom: 110,
     width: '100%',
   },
-  columnWrapper: {
-    gap: 12,
+  // Strictly 2 columns on wide screens
+  columnWrapperTwo: {
+    gap: 14,
   },
   headerContainer: {
     marginBottom: SPACING.sm,
@@ -367,11 +673,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
+    fontFamily: FONTS.family,
   },
   greetingName: {
     fontSize: 20,
     fontWeight: '800',
     color: COLORS.text,
+    fontFamily: FONTS.family,
+    letterSpacing: -0.3,
   },
   topRightActions: {
     flexDirection: 'row',
@@ -399,6 +708,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: '#065F46',
+    fontFamily: FONTS.family,
   },
   iconCircleButton: {
     width: 38,
@@ -430,6 +740,129 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 10,
     fontWeight: '800',
+    fontFamily: FONTS.family,
+  },
+  // Featured Front-Page Food Item
+  featuredCard: {
+    backgroundColor: COLORS.cardBackground,
+    borderRadius: 18,
+    overflow: 'hidden',
+    marginTop: SPACING.xs,
+    marginBottom: SPACING.md,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.md,
+  },
+  featuredImage: {
+    width: '100%',
+    height: 190,
+    backgroundColor: '#CBD5E1',
+  },
+  featuredOverlay: {
+    padding: SPACING.md,
+  },
+  featuredBadgeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 6,
+  },
+  chefBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+    gap: 4,
+  },
+  chefBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    fontFamily: FONTS.family,
+  },
+  limitedBadge: {
+    backgroundColor: COLORS.secondary,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  limitedBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    fontFamily: FONTS.family,
+  },
+  featuredTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.text,
+    fontFamily: FONTS.family,
+    letterSpacing: -0.3,
+  },
+  featuredDesc: {
+    fontSize: 13,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+    marginTop: 4,
+    lineHeight: 18,
+  },
+  featuredBottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+  },
+  featuredPriceLabel: {
+    fontSize: 11,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
+  },
+  featuredPrice: {
+    fontSize: 19,
+    fontWeight: '800',
+    color: COLORS.primaryDark,
+    fontFamily: FONTS.family,
+  },
+  featuredActionsRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  featuredDetailBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: 10,
+    backgroundColor: COLORS.surface,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  featuredDetailBtnText: {
+    color: COLORS.text,
+    fontSize: 13,
+    fontWeight: '700',
+    fontFamily: FONTS.family,
+  },
+  featuredAddBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+    borderRadius: 10,
+    gap: 4,
+    ...SHADOWS.sm,
+  },
+  featuredAddBtnText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+    fontFamily: FONTS.family,
   },
   promoBanner: {
     backgroundColor: COLORS.secondary,
@@ -438,7 +871,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: SPACING.xs,
     marginBottom: SPACING.md,
     ...SHADOWS.sm,
   },
@@ -450,22 +882,25 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 0.8,
+    fontFamily: FONTS.family,
   },
   promoTitle: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
     marginTop: 2,
+    fontFamily: FONTS.family,
   },
   promoSub: {
     color: '#94A3B8',
-    fontSize: 12,
+    fontSize: 11,
     marginTop: 2,
+    fontFamily: FONTS.family,
   },
   promoBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: COLORS.primary,
     justifyContent: 'center',
     alignItems: 'center',
@@ -487,6 +922,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: COLORS.text,
+    fontFamily: FONTS.family,
   },
   categoryScroll: {
     flexDirection: 'row',
@@ -513,10 +949,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
   },
   categoryPillTextActive: {
     color: '#FFFFFF',
     fontWeight: '700',
+    fontFamily: FONTS.family,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -528,13 +966,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     color: COLORS.text,
+    fontFamily: FONTS.family,
+    letterSpacing: -0.3,
   },
   itemCountLabel: {
     fontSize: 12,
     color: COLORS.textSecondary,
     fontWeight: '500',
+    fontFamily: FONTS.family,
   },
-  // Responsive horizontal card
   card: {
     flexDirection: 'row',
     backgroundColor: COLORS.cardBackground,
@@ -546,9 +986,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...SHADOWS.sm,
   },
-  cardMultiColumn: {
+  cardTwoColumn: {
     flex: 1,
-    minWidth: 280,
+    minWidth: '47%',
   },
   cardLeft: {
     flex: 1,
@@ -600,6 +1040,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '800',
     color: '#B45309',
+    fontFamily: FONTS.family,
   },
   spicyBadge: {
     backgroundColor: COLORS.dangerLight,
@@ -611,17 +1052,20 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '800',
     color: COLORS.danger,
+    fontFamily: FONTS.family,
   },
   cardTitle: {
     fontSize: 15,
     fontWeight: '700',
     color: COLORS.text,
+    fontFamily: FONTS.family,
   },
   cardDescription: {
     fontSize: 12,
     color: COLORS.textSecondary,
     marginTop: 3,
     lineHeight: 16,
+    fontFamily: FONTS.family,
   },
   cardMetaRow: {
     flexDirection: 'row',
@@ -637,30 +1081,33 @@ const styles = StyleSheet.create({
   metaText: {
     fontSize: 11,
     color: COLORS.textSecondary,
+    fontFamily: FONTS.family,
   },
   ratingText: {
     fontSize: 11,
     fontWeight: '700',
     color: COLORS.text,
+    fontFamily: FONTS.family,
   },
   reviewsCountText: {
     fontSize: 10,
     color: COLORS.textMuted,
+    fontFamily: FONTS.family,
   },
   priceText: {
     fontSize: 15,
     fontWeight: '800',
     color: COLORS.primaryDark,
     marginTop: 6,
+    fontFamily: FONTS.family,
   },
-  // 1:1 square photo container on right
   cardRight: {
-    width: 100,
+    width: 96,
     alignItems: 'center',
   },
   cardSquareImage: {
-    width: 100,
-    height: 100,
+    width: 96,
+    height: 96,
     borderRadius: 12,
     backgroundColor: '#E2E8F0',
   },
@@ -681,6 +1128,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '700',
+    fontFamily: FONTS.family,
   },
   emptyContainer: {
     alignItems: 'center',
@@ -692,11 +1140,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.text,
     marginTop: 10,
+    fontFamily: FONTS.family,
   },
   emptySub: {
     fontSize: 12,
     color: COLORS.textSecondary,
     marginTop: 4,
+    fontFamily: FONTS.family,
   },
   resetButton: {
     marginTop: 12,
@@ -709,6 +1159,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
     fontWeight: '700',
     fontSize: 12,
+    fontFamily: FONTS.family,
   },
   floatingCartContainer: {
     position: 'absolute',
@@ -746,15 +1197,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '800',
     fontSize: 13,
+    fontFamily: FONTS.family,
   },
   floatingCartTitle: {
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '700',
+    fontFamily: FONTS.family,
   },
   floatingCartSub: {
     color: '#94A3B8',
     fontSize: 11,
+    fontFamily: FONTS.family,
   },
   floatingCartRight: {
     flexDirection: 'row',
@@ -768,5 +1222,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '700',
     fontSize: 12,
+    fontFamily: FONTS.family,
   },
 });

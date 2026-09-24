@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const COLORS = {
   primary: '#FF5E1E',       // Energetic warm orange
   primaryDark: '#E0470B',
@@ -33,6 +35,15 @@ export const SPACING = {
   lg: 24,
   xl: 32,
   xxl: 40,
+};
+
+export const FONTS = {
+  family: Platform.select({
+    ios: 'System',
+    web: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    android: 'Roboto',
+    default: 'System',
+  }),
 };
 
 export const SHADOWS = {

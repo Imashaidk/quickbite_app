@@ -23,7 +23,7 @@ The application implements all 8 required screens arranged in a seamless linear 
 2. Login / Guest-Access Screen (`src/screens/LoginScreen.tsx`):
    Allows student authentication with Student ID or email, form input validation, demo credential autofill, and guest access mode.
 3. Home Screen (`src/screens/HomeScreen.tsx`):
-   Displays categories (All, Meals, Beverages, Snacks, Desserts), real-time search bar, campus promo banner, and horizontal food cards featuring 1:1 proportional food photos arranged in a full-width responsive multi-column grid across phone, tablet, and desktop views.
+   Displays categories (All, Meals, Beverages, Snacks, Desserts), real-time search bar, front-page featured Chef's daily dish (Canteen Lamprais), Apple SF Pro typography, and horizontal food cards featuring 1:1 proportional food photos arranged in strictly 2 columns alongside a dedicated desktop navigation sidebar.
 4. Item Detail Screen (`src/screens/ItemDetailScreen.tsx`):
    Contains proportional hero food photo, dietary indicators (Vegetarian, Spicy, Campus Favorite), preparation time, calories, quantity selector, special preparation instructions, and dynamic subtotal.
 5. Cart Screen (`src/screens/CartScreen.tsx`):
