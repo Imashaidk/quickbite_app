@@ -15,11 +15,13 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { MENU_ITEMS, MenuItem, CATEGORIES, CategoryType } from '../data/menuData';
-import { COLORS, SPACING, SHADOWS, FONTS } from '../theme/colors';
+import { COLORS, SPACING, SHADOWS, FONT_FAMILY } from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useOrder } from '../context/OrderContext';
+
+const FONT_STACK = FONT_FAMILY || 'System';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -499,7 +501,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     fontSize: 13,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   appShell: {
     flex: 1,
@@ -536,13 +538,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     letterSpacing: -0.3,
   },
   sidebarBrandSub: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sidebarStudentCard: {
     flexDirection: 'row',
@@ -563,18 +565,18 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '700',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sidebarStudentId: {
     fontSize: 10,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sidebarBalance: {
     fontSize: 11,
     fontWeight: '800',
     color: COLORS.primaryDark,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     marginTop: 2,
   },
   sidebarNav: {
@@ -596,7 +598,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     flex: 1,
   },
   sidebarNavTextActive: {
@@ -613,7 +615,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 11,
     fontWeight: '800',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sidebarOrderAlert: {
     backgroundColor: '#FEF3C7',
@@ -633,13 +635,13 @@ const styles = StyleSheet.create({
   hoursText: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sidebarVersion: {
     fontSize: 10,
     color: COLORS.textMuted,
     marginTop: 6,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   // Main Content
   mainContent: {
@@ -673,13 +675,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   greetingName: {
     fontSize: 20,
     fontWeight: '800',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     letterSpacing: -0.3,
   },
   topRightActions: {
@@ -708,7 +710,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: '#065F46',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   iconCircleButton: {
     width: 38,
@@ -740,7 +742,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 10,
     fontWeight: '800',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   // Featured Front-Page Food Item
   featuredCard: {
@@ -781,7 +783,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 0.5,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   limitedBadge: {
     backgroundColor: COLORS.secondary,
@@ -794,19 +796,19 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 0.5,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   featuredTitle: {
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     letterSpacing: -0.3,
   },
   featuredDesc: {
     fontSize: 13,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     marginTop: 4,
     lineHeight: 18,
   },
@@ -822,13 +824,13 @@ const styles = StyleSheet.create({
   featuredPriceLabel: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   featuredPrice: {
     fontSize: 19,
     fontWeight: '800',
     color: COLORS.primaryDark,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   featuredActionsRow: {
     flexDirection: 'row',
@@ -846,7 +848,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 13,
     fontWeight: '700',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   featuredAddBtn: {
     flexDirection: 'row',
@@ -862,7 +864,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 13,
     fontWeight: '700',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   promoBanner: {
     backgroundColor: COLORS.secondary,
@@ -882,20 +884,20 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 0.8,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   promoTitle: {
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '700',
     marginTop: 2,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   promoSub: {
     color: '#94A3B8',
     fontSize: 11,
     marginTop: 2,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   promoBadge: {
     width: 42,
@@ -922,7 +924,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   categoryScroll: {
     flexDirection: 'row',
@@ -949,12 +951,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   categoryPillTextActive: {
     color: '#FFFFFF',
     fontWeight: '700',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -966,14 +968,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
     letterSpacing: -0.3,
   },
   itemCountLabel: {
     fontSize: 12,
     color: COLORS.textSecondary,
     fontWeight: '500',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   card: {
     flexDirection: 'row',
@@ -1040,7 +1042,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '800',
     color: '#B45309',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   spicyBadge: {
     backgroundColor: COLORS.dangerLight,
@@ -1052,20 +1054,20 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '800',
     color: COLORS.danger,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   cardTitle: {
     fontSize: 15,
     fontWeight: '700',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   cardDescription: {
     fontSize: 12,
     color: COLORS.textSecondary,
     marginTop: 3,
     lineHeight: 16,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   cardMetaRow: {
     flexDirection: 'row',
@@ -1081,25 +1083,25 @@ const styles = StyleSheet.create({
   metaText: {
     fontSize: 11,
     color: COLORS.textSecondary,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   ratingText: {
     fontSize: 11,
     fontWeight: '700',
     color: COLORS.text,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   reviewsCountText: {
     fontSize: 10,
     color: COLORS.textMuted,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   priceText: {
     fontSize: 15,
     fontWeight: '800',
     color: COLORS.primaryDark,
     marginTop: 6,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   cardRight: {
     width: 96,
@@ -1128,7 +1130,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '700',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   emptyContainer: {
     alignItems: 'center',
@@ -1140,13 +1142,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.text,
     marginTop: 10,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   emptySub: {
     fontSize: 12,
     color: COLORS.textSecondary,
     marginTop: 4,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   resetButton: {
     marginTop: 12,
@@ -1159,7 +1161,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
     fontWeight: '700',
     fontSize: 12,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   floatingCartContainer: {
     position: 'absolute',
@@ -1197,18 +1199,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '800',
     fontSize: 13,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   floatingCartTitle: {
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '700',
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   floatingCartSub: {
     color: '#94A3B8',
     fontSize: 11,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
   floatingCartRight: {
     flexDirection: 'row',
@@ -1222,6 +1224,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '700',
     fontSize: 12,
-    fontFamily: FONTS.family,
+    fontFamily: FONT_STACK,
   },
 });

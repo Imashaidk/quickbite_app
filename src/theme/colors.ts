@@ -37,13 +37,12 @@ export const SPACING = {
   xxl: 40,
 };
 
+export const FONT_FAMILY = Platform.OS === 'web'
+  ? "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+  : 'System';
+
 export const FONTS = {
-  family: Platform.select({
-    ios: 'System',
-    web: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-    android: 'Roboto',
-    default: 'System',
-  }),
+  family: FONT_FAMILY,
 };
 
 export const SHADOWS = {

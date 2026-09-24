@@ -136,7 +136,7 @@ const homeScreenContent = fs.readFileSync(path.join(__dirname, 'src/screens/Home
 assert(homeScreenContent.includes('styles.sidebar'), 'HomeScreen includes navigation sidebar');
 assert(homeScreenContent.includes('columnWrapperTwo'), 'HomeScreen uses strictly 2 columns layout');
 assert(homeScreenContent.includes('FEATURED_SPECIAL'), 'HomeScreen includes front-page featured special dish');
-assert(homeScreenContent.includes('FONTS.family'), 'HomeScreen uses Apple SF Pro typography stack');
+assert(homeScreenContent.includes('FONT_STACK') || homeScreenContent.includes('FONT_FAMILY'), 'HomeScreen uses Apple SF Pro typography stack');
 
 console.log('\n====================================================');
 console.log(`AUDIT COMPLETE: ${passedTests} / ${totalTests} TESTS PASSED`);
