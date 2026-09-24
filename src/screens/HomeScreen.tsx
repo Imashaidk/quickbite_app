@@ -150,7 +150,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.featuredBadgeRow}>
             <View style={styles.chefBadge}>
               <Ionicons name="star" size={12} color="#FFFFFF" />
-              <Text style={styles.chefBadgeText}>KELANIYA SPECIAL</Text>
+              <Text style={styles.chefBadgeText}>UOK SPECIAL</Text>
             </View>
             <View style={styles.limitedBadge}>
               <Text style={styles.limitedBadgeText}>DAILY BATCH</Text>
